@@ -39,4 +39,10 @@ public class Metro {
     public TreeMap<String, ArrayList<String>> getStations() {
         return stations;
     }
+
+    public static void getNumberStationsOnOneLine(Metro metro) {
+        System.out.println("Number of stations on one line:");
+        metro.getStations().forEach((lineNumber, listStations) ->
+                System.out.printf("On line № %2s there are %2d stations %n", lineNumber, listStations.size()));
+    }
 }

@@ -4,6 +4,7 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
 import parser.HtmlParser;
+import parser.Metro;
 import parser.WriterJson;
 
 import java.io.BufferedReader;
@@ -25,7 +26,9 @@ public class Main {
 
         try {
             HtmlParser htmlParser = new HtmlParser(URL_METRO);
-            WriterJson.writeToJsonFile(htmlParser.getMetro(htmlParser.htmlFromURL()), userNameFileAndPathDirectory());
+            Metro metro = htmlParser.getMetro(htmlParser.htmlFromURL());
+            WriterJson.writeToJsonFile(metro, userNameFileAndPathDirectory());
+            Metro.getNumberStationsOnOneLine(metro);
         } catch (IOException e) {
             LOGGER.catching(e);
         }
@@ -42,7 +45,7 @@ public class Main {
                 continue;
             }
             LOGGER.info(INPUT_HISTORY_MARKER, "Correct file name: {}", fileName);
-            System.out.println("Enter path");
+            System.out.println("Enter path:");
             String directory = reader.readLine();
             if (directory.matches("")) {
                 Path path = Path.of(directory + fileName);
